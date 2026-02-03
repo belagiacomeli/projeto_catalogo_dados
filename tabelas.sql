@@ -64,3 +64,9 @@ CREATE TABLE pedido (
 
   FOREIGN KEY (id_cliente) REFERENCES cliente(id_cliente)
 );
+
+-- Criação da tabela canal_compra
+CREATE TABLE canal_compra (
+  id_canal INT AUTO_INCREMENT PRIMARY KEY,
+  nome_canal VARCHAR(50)
+);
