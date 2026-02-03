@@ -53,10 +53,14 @@ CREATE TABLE contato (
 
 -- Criação da tabela pedido (dados transacionais)
 CREATE TABLE pedido (
-    id_pedido INT AUTO_INCREMENT PRIMARY KEY,
-    id_cliente INT,
-    data_pedido DATE,
-    valor_total DECIMAL(10,2),
-    status_pedido VARCHAR(30),
-    FOREIGN KEY (id_cliente) REFERENCES cliente(id_cliente)
+  id_pedido INT AUTO_INCREMENT PRIMARY KEY,
+  id_cliente INT,
+  data_pedido DATE,
+  valor_total DECIMAL(10,2),
+  status_pedido VARCHAR(20),
+
+  numero_nota_fiscal VARCHAR(30),
+  data_emissao_nf DATE,
+
+  FOREIGN KEY (id_cliente) REFERENCES cliente(id_cliente)
 );
