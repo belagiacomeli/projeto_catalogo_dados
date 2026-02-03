@@ -59,14 +59,11 @@ CREATE TABLE pedido (
   valor_total DECIMAL(10,2),
   status_pedido VARCHAR(20),
 
+  tipo_pagamento VARCHAR(30),     
+  canal_compra VARCHAR(30),       
+
   numero_nota_fiscal VARCHAR(30),
   data_emissao_nf DATE,
 
   FOREIGN KEY (id_cliente) REFERENCES cliente(id_cliente)
-);
-
--- Criação da tabela canal_compra
-CREATE TABLE canal_compra (
-  id_canal INT AUTO_INCREMENT PRIMARY KEY,
-  nome_canal VARCHAR(50)
 );
