@@ -4,23 +4,22 @@ CREATE DATABASE catalogo_dados;
 -- Define o banco de dados ativo onde os comandos SQL serão executados
 USE catalogo_dados;
 
--- -- Criação da tabela cliente (entidade principal)
-CREATE TABLE cliente (
-    id_cliente INT AUTO_INCREMENT PRIMARY KEY,
-    tipo_cliente VARCHAR(20),
-    data_cadastro DATE,
-    status_cliente VARCHAR(20)
+CREATE TABLE catalogo_dados.cliente (
+  id_cliente INT AUTO_INCREMENT PRIMARY KEY,
+
+  nome_cliente VARCHAR(150) NOT NULL,
+  data_nascimento DATE NULL,
+  genero CHAR(1) NULL,
+
+  tipo_cliente VARCHAR(2) NOT NULL,
+
+  data_cadastro DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  data_atualizacao DATETIME NULL DEFAULT NULL,
+  data_inativacao DATETIME NULL DEFAULT NULL,
+
+  status_cliente VARCHAR(10) NOT NULL 
 );
 
--- Criação da tabela dados_pessoais (dados sensíveis)
-CREATE TABLE dados_pessoais (
-    id_dados_pessoais INT AUTO_INCREMENT PRIMARY KEY,
-    id_cliente INT,
-    nome_completo VARCHAR(150),
-    data_nascimento DATE,
-    genero VARCHAR(20),
-    FOREIGN KEY (id_cliente) REFERENCES cliente(id_cliente)
-);
 
 -- Criação da tabela documento (dados altamente sensíveis)
 CREATE TABLE documento (
