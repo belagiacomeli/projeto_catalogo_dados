@@ -1,3 +1,6 @@
+-- Esse script tem como objetivo criar as tabelas clientes, documento, endereco, 
+-- contato e pedido necessárias para o Projeto Catálogo de Dados.
+
 -- Criando o DATABASE do Projeto Catálogo de Dados
 CREATE DATABASE catalogo_dados;
 
