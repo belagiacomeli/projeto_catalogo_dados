@@ -5,7 +5,7 @@ services:
     image: mysql:8.0
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: dados123
+      MYSQL_ROOT_PASSWORD: Izabela20
       MYSQL_DATABASE: catalogo_dados
       MYSQL_USER: catalogo_user
       MYSQL_PASSWORD: catalogo123
@@ -20,7 +20,7 @@ services:
     image: mysql:8.0
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: dados123
+      MYSQL_ROOT_PASSWORD: Izabela20
       MYSQL_DATABASE: catalogo_dados
       MYSQL_USER: catalogo_user
       MYSQL_PASSWORD: catalogo123

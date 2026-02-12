@@ -1,11 +1,10 @@
-
 import pymysql
 from pymysql import Error
 
 def connect_to_database(
     host="localhost",
     user="root",
-    password="dados123",
+    password="Izabela20",
     database="catalogo_dados"
 ):
     try:
@@ -35,7 +34,7 @@ def close_connection(conn):
     try:
         if conn:
             conn.close()
-            print("✅ Conexão com MySQL fechada com sucesso!")
+            print("\n\n✅ Conexão com MySQL fechada com sucesso!")
     except Error as e:
         print(f"❌ Erro ao fechar a conexão: {e}")
     except Exception as e:
@@ -51,9 +50,10 @@ def extract_tables_from_database(conn):
         cursor.execute("SHOW TABLES;")
         tables = cursor.fetchall()
 
-        print("Tabelas no banco de dados:")
-        for table in tables:    
+        print("\nTabelas no banco de dados:")
+        for table in tables:
             print(f"- {table[0]}")
+        print("\n\n")
         return tables
 
     except Error as e:
@@ -74,13 +74,12 @@ def extract_columns_from_tables(conn, tables):
 
         for table in tables:
             table_name = table[0]
-            cursor.execute(f"SHOW COLUMNS FROM {table_name};")
+
+            # Igual ao dele, mas com proteção usando crase (recomendado)
+            cursor.execute(f"SHOW COLUMNS FROM `{table_name}`;")
             columns = cursor.fetchall()
 
-            print(f"Colunas na tabela {table_name}:")
             columns_data[table_name] = columns
-            for column in columns:
-                print(f"- {column[0]}")
 
     except Error as e:
         print(f"❌ Erro ao extrair colunas: {e}")
@@ -88,5 +87,36 @@ def extract_columns_from_tables(conn, tables):
     except Exception as e:
         print(f"❌ Erro inesperado ao extrair colunas: {e}")
         raise
-    
-    return columns_data
+
+    predefined_columns = [
+        "endereco", "cep", "email", "e-mail", "telefone",
+        "nome_completo", "cpf", "rua", "numero_documento"
+    ]
+
+    return filter_columns_by_list(columns_data, predefined_columns)
+
+def filter_columns_by_list(columns_data, predefined_columns):
+    """
+    Filtra as colunas de cada tabela retornando apenas aquelas que estão na lista pré-definida
+    """
+    try:
+        filtered_columns = {}
+
+        for table_name, columns in columns_data.items():
+            # Extrai apenas o nome da coluna (primeiro elemento da tupla)
+            column_names = [column[0] for column in columns]
+
+            # Filtra apenas as colunas que estão na lista pré-definida
+            matched_columns = [col for col in column_names if col.lower() in predefined_columns]
+
+            if matched_columns:
+                filtered_columns[table_name] = matched_columns
+                print(f"Colunas sensíveis encontradas na tabela {table_name}: {matched_columns}")
+            else:
+                print(f"Nenhuma coluna sensível encontrada na tabela {table_name}")
+
+        return filtered_columns
+
+    except Exception as e:
+        print(f"❌ Erro ao filtrar colunas: {e}")
+        raise
